@@ -123,7 +123,8 @@ program portfolio_opt
 
       mean_daily = sum(ret_carteira) / n_obs
       media = mean_daily * 252.0_dp
-      stddev = sqrt(sum((ret_carteira - mean_daily)**2) / real(n_obs-1)) * sqrt(252.0_dp)
+      stddev = sqrt(dot_product(w, matmul(covar(iidx, iidx), w))) * sqrt(252.0_dp)
+
       sr = media / stddev
       if (sr > localSR) localSR = sr
     end do
